@@ -55,9 +55,9 @@ public class MeshSculptor : MonoBehaviour {
     [HideInInspector]
     protected Mesh originalMeshCopy;
 
-    [SerializeField]
+    
     [HideInInspector]
-    MeshSculptorSpace.Mesh mesh;
+    public MeshSculptorSpace.Mesh mesh;
     [SerializeField]
     [HideInInspector]
     new MeshRenderer renderer;
@@ -85,6 +85,13 @@ public class MeshSculptor : MonoBehaviour {
         paintedMesh.colors32 = newColors;
     }
     #endregion
+
+
+    [HideInInspector]
+    public Color[] vertexColors = null;
+
+    [HideInInspector]
+    public Material originalMaterial = null;
 
     public void ResetVertexColors() {
         Color32[] newColors = new Color32[paintedMesh.vertices.Length];
@@ -116,7 +123,8 @@ public class MeshSculptor : MonoBehaviour {
             newMaterials.Add(unlitVertexColor);
         }
         else {
-            newMaterials.AddRange(originalMaterials);
+            //newMaterials.AddRange(originalMaterials);
+            newMaterials.Add(originalMaterial);
         }
 
         renderer.materials = newMaterials.ToArray();
@@ -139,6 +147,7 @@ public class MeshSculptor : MonoBehaviour {
         originalMaterials = new Material[renderer.materials.Length];
         renderer.materials.CopyTo(originalMaterials, 0);
         InitMaterials();
+        //InitVertexColors();
     }
 
     // Update is called once per frame
@@ -189,6 +198,10 @@ public class MeshSculptor : MonoBehaviour {
         string dataPath = Application.dataPath;
         string directory = GetDirectory();
 
+        if (this.originalMaterial == null) { 
+        this.originalMaterial = GetComponent<MeshRenderer>().material;
+        }
+
         string[] files = System.IO.Directory.GetFiles(directory, "UnlitVertexColor.mat");
         if (files.Length == 0) {
             throw new System.Exception("No material named UnlitVertexColor found, make sure your MeshSculptor directory includes the UnlitVertexColor material");
@@ -203,9 +216,11 @@ public class MeshSculptor : MonoBehaviour {
     void StoreInitialMesh() {
         if (originalMeshCopy == null) {
             originalMeshCopy = transform.GetComponent<MeshFilter>().sharedMesh;
+            Debug.Log("originalMeshCopy == null");
             mesh = new MeshSculptorSpace.Mesh(originalMeshCopy, transform);
         }
         if (mesh == null) {
+            Debug.Log("mesh == null!");
             mesh = new MeshSculptorSpace.Mesh(originalMeshCopy, transform);
         }
     }

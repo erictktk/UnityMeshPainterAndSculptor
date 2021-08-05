@@ -100,14 +100,19 @@ namespace MeshSculpterSpace {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             RaycastHit hit;
 
+            //this doesn't work on my laptop for some reason, use above instead
+            /*
             Vector2 mousePos = e.mousePosition;
             Camera c = Camera.current;
             mousePos.y = c.pixelHeight - mousePos.y;
             Vector3 p1 = c.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
             Vector3 p2 = c.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
             Vector3 dir = p2 - p1;
+            */
 
-            ray = new Ray(p1, dir);
+            //ray = new Ray(p1, dir);
+
+
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
                 Vector3 p = hit.point;

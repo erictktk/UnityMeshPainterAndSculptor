@@ -12,6 +12,7 @@ namespace MeshSculptorSpace {
         public UnityEngine.Mesh unityMesh;
         public Vertex[] vertices;
         public Face[] faces;
+        public Color[] colors;
         //public Edges[] edges;
 
         public Vector3[] worldPositions { get; private set; }
@@ -62,6 +63,7 @@ namespace MeshSculptorSpace {
         public Mesh(UnityEngine.Mesh mesh, Transform transform) {
             vertices = new Vertex[mesh.vertices.Length];
             faces = new Face[mesh.triangles.Length/3];
+            colors = new Color[mesh.vertices.Length];
 
             //Debug.Log(mesh.triangles.Length);
             //Debug.Log(mesh.triangles.Length / 3);
