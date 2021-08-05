@@ -9,3 +9,5 @@ A tool for vertex painting and sculpting (smoothing, heightening and depressing)
 Includes a simple vertex shader.
 
 Pictures:<br>
+
+![VertexShaderExample](https://github.com/erictktk/UnityMeshSculptorAndPainter/blob/master/vertexshaderexample.png)
